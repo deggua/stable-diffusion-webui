@@ -106,6 +106,14 @@ if not cmd_opts.share:
     gradio.utils.version_check = lambda: None
     gradio.utils.get_local_ip_address = lambda: '127.0.0.1'
 
+# TODO: remove this when they fix the bug
+# replace bugged gradio function
+def update(**kwargs) -> dict:
+    kwargs["__type__"] = "update"
+    return kwargs
+
+gr.update = update
+
 SamplerData = namedtuple('SamplerData', ['name', 'constructor'])
 samplers = [
     *[SamplerData(x[0], lambda funcname=x[1]: KDiffusionSampler(funcname)) for x in [
@@ -2012,7 +2020,7 @@ with gr.Blocks(css=webui_css + userstyle_css + history_css, analytics_enabled=Fa
 
                         sd_resize_mode = gr.Dropdown(label="Resize mode", choices=["Stretch", "Scale and crop", "Scale and fill"], type="index", value="Stretch", visible=False)
 
-                        with gr.Row():
+                        with gr.Row(elem_id='mask_options'):
                             sd_inpainting_mask_content = gr.Dropdown(label='Masked content', choices=['Fill', 'Original', 'Latent noise', 'Latent nothing'], value='Fill', type="index", visible=False, elem_id='sd_inpainting_mask_content')
                             sd_inpainting_mask_blur = gr.Slider(label='Mask blur', minimum=0, maximum=64, step=1, value=4, visible=False, elem_id='sd_inpainting_mask_blur')
 
@@ -2078,7 +2086,7 @@ with gr.Blocks(css=webui_css + userstyle_css + history_css, analytics_enabled=Fa
                 hist_refresh = gr.Button('Refresh', elem_id='hist_refresh')
                 hist_erase = gr.Button('Erase', elem_id='hist_erase')
             with gr.Row():
-                hist_html = gr.HTML(value=plaintext_to_html('Press refresh to load history'))
+                hist_html = gr.HTML(value=read_history)
 
         # Settings tab
         with gr.TabItem('Settings'):

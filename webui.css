@@ -45,18 +45,22 @@ Looping fade in/out, seems to impact GPU render speed sadly
 /* remove excess padding around prompt textbox, increase font size */
 #prompt_row input { font-size: 16px }
 #prompt_input {
-    padding-top: 0.25rem !important;
+    padding-top: 0.0rem !important;
     padding-bottom: 0rem !important;
     padding-left: 0rem !important;
     padding-right: 0rem !important;
     border-style: none !important;
+}
+#prompt_row > div {
+    border: none;
+    margin-top: 0.5rem;
 }
 
 /* remove excess padding from mode dropdown, change appear to a button */
 #sd_mode {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
-    padding-left: 0.75rem !important;
+    padding-left: 0 !important;
     padding-right: 0 !important;
     border-style: none !important;
 }
@@ -79,12 +83,12 @@ Looping fade in/out, seems to impact GPU render speed sadly
 }
 
 /* custom column scaling (odd = right/left, even = center) */
-#body>.col:nth-child(odd) {
-    max-width: 450px;
-    min-width: 300px;
+#body > .col:nth-child(odd) {
+    max-width: 450px !important;
+    min-width: 300px !important;
 }
-#body>.col:nth-child(even) {
-    width:250%;
+#body > .col:nth-child(even) {
+    min-width: 50% !important;
 }
 
 /* better overall scaling + limits */
@@ -110,6 +114,13 @@ Looping fade in/out, seems to impact GPU render speed sadly
     padding-top: 0.75rem;
 }
 
+#row_buttons > div {
+    margin-right: auto;
+    max-width: 15rem;
+    margin-left: 0.75rem;
+    border: none;
+}
+
 #info_img {
     max-width: 60%;
     min-height: 60vh;
@@ -124,6 +135,13 @@ Looping fade in/out, seems to impact GPU render speed sadly
 /* left alignment for postprocesing/settings row buttons */
 #sd_save_settings, #pp_submit {
     margin-left: auto;
+}
+
+#sd_input_img {
+    border-top-right-radius: 0.5rem !important;
+    border-top-left-radius: 0.5rem !important;
+    border-top-style: dashed !important;
+    border-top-width: 1px !important;
 }
 
 /* increase image size */
@@ -150,6 +168,12 @@ Looping fade in/out, seems to impact GPU render speed sadly
 #pp_input_img > div[data-testid="image"] > div,
 #info_img > div[data-testid="image"] > div {
     max-height: 100%;
+}
+
+#mask_options > div {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top-width: 0;
 }
 
 /* fix group borders for split mask controls */
